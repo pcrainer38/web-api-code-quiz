@@ -14,19 +14,18 @@
         </nav>
     </div>
 
-    <div>
+    <div id="start-now">
         <div id="start-screen" class="start">
             <h1>Coding Quiz Challenge</h1>
             <h3>To begin the challenge click start.  To answer the multiple choice questions click the answer that you think is correct. Note that there is a 10 sec time penalty for wrong answers.  Good luck!</h3>
         </div>
-    </div>
-
-    <div id="startBtn">
-        <button>START</button>
+        <div id="startBtn">
+            <button onclick="playGame()">START</button>
+        </div>
     </div>
 
     <div id="question" class="hide">
-        <h2 id="question-title"></h2>
+        <h2 id="questionTitle"></h2>
         <div id="options" class="options"></div>
     </div>
 
@@ -38,8 +37,10 @@
         <button id="submit">SUBMIT</button>
         </p>
     </div>
+
+    <div id="feedback" class="feedback hide"></div>
     
-    <script src="assets/js/questions.js"></script>
+    <script src="./questions.js"></script>
     <script src="./assets/js/script.js"></script>
 </body>
 </html>

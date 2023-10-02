@@ -10,7 +10,7 @@ var question = [
     answer: "an else"
 },
 {
-    questionTitle: "An array can contain a list of numbers, objects, boolean and '___' ",
+    questionTitle: "An array can contain a list of numbers, objects, boolean and what? ",
     options: ["strings", "if statements", "variables", "meta-data"],
     answer: "strings"
 },
