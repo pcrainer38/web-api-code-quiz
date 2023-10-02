@@ -9,12 +9,14 @@
     margin-right: 10px;
 }
 
-header {
+#start-screen {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     text-align: center;
 }
 
-.button {
+#startBtn {
     display: flex;
     justify-content: center;
-
 }
