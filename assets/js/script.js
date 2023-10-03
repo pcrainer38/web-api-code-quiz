@@ -3,6 +3,7 @@ var optionsEl = document.querySelector("#options");
 var initialsEl = document.querySelector("#initials");
 var feedbackEl = document.querySelector("#feedback");
 var timerEl = document.querySelector("#time");
+var submitEl = document.querySelector("#submit");
 
 var currentQuestionIndex = 0;
 
@@ -42,15 +43,15 @@ function getQuestion() {
     // loops over options
     currentQuestion.options.forEach(function(choice, i) {
         // creates button for each option
-        var choiceNode = document.createElement("button");
-        choiceNode.setAttribute("class", "options");
-        choiceNode.setAttribute("value", choice);
+        var userChoice = document.createElement("button");
+        userChoice.setAttribute("class", "options");
+        userChoice.setAttribute("value", choice);
 
-        choiceNode.textContent = i + 1 + ". " + choice;
+        userChoice.textContent = i + 1 + ". " + choice;
 
-        choiceNode.onclick = checkAnswers;
+        userChoice.onclick = checkAnswers;
 
-        optionsEl.appendChild(choiceNode);
+        optionsEl.appendChild(userChoice);
         
     });
 }
