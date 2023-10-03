@@ -4,11 +4,18 @@ var initialsEl = document.querySelector("#initials");
 var feedbackEl = document.querySelector("#feedback");
 var timerEl = document.querySelector("#time");
 var submitEl = document.querySelector("#submit");
+var hscoresEl = document.querySelector("#hscores");
 
 var currentQuestionIndex = 0;
 
 
 document.getElementById("end-screen").setAttribute("hidden", "");
+document.getElementById("highscores").setAttribute("hidden", "");
+
+var timer;
+var sec;
+var savedScores = JSON.parse(localStorage.getItem("savedScores"));
+ 
 
 function playGame() {
     // hide start screen
@@ -16,13 +23,14 @@ function playGame() {
     
 
     document.getElementById("question").removeAttribute("hidden", "");
-    timer();
+    clock();
     getQuestion();    
 }
+
 // timer
-function timer() {
-    var sec = question.length * 5;
-    var timer = setInterval(function() {
+function clock() {
+    sec = question.length * 5;
+    timer = setInterval(function() {
         document.getElementById('time').innerHTML='00:'+sec;
         sec--;
         if (sec < 0) {
@@ -59,10 +67,10 @@ function getQuestion() {
 function checkAnswers() {
     // check user's answer
     if (this.value !== question[currentQuestionIndex].answer) {
-        time -= 5;
+        timer -= 5;
 
-        if (time < 0) {
-            time = 0;
+        if (timer < 0) {
+            timer = 0;
         }
 
         timerEl.textContent = time;
@@ -94,9 +102,36 @@ function quizEnd() {
 
     // show final score
     var finalScoreEl = document.getElementById("final-score");
-    finalScoreEl.textContent = time;
+    finalScoreEl.textContent = sec;
 
     // hide questions section
     document.getElementById("question").setAttribute("hidden", "");
+
+        
 }
 
+function getHighScores () {
+    document.getElementById("end-screen").setAttribute("hidden", "");
+    document.getElementById("highscores").removeAttribute("hidden", "");
+    for (var i = 0; i < savedScores.length; i++) {
+        var newLi = document.createElement("li");
+        newLi.textContent = savedScores[i].initials + " - " + savedScores[i].score;
+        document.getElementById("highscores").append(newLi);
+    }
+}
+hscoresEl.onclick = getHighScores;
+
+function saveScore () {
+    var data = {
+        initials: initialsEl.value,
+        score: sec
+    }
+    savedScores.push(data);
+    localStorage.setItem("savedScores", JSON.stringify(savedScores));
+
+    // hide feedback
+    document.getElementById("feedback").setAttribute("hidden", "");
+
+    getHighScores();
+}
+submitEl.onclick = saveScore;
