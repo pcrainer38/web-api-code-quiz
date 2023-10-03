@@ -33,7 +33,7 @@ function clock() {
     timer = setInterval(function() {
         document.getElementById('time').innerHTML='00:'+sec;
         sec--;
-        if (sec < 0) {
+        if (sec <= 0) {
             clearInterval(timer);
         }
     }, 1000);
@@ -67,13 +67,13 @@ function getQuestion() {
 function checkAnswers() {
     // check user's answer
     if (this.value !== question[currentQuestionIndex].answer) {
-        timer -= 5;
+        sec -= 5;
 
-        if (timer < 0) {
-            timer = 0;
+        if (sec < 0) {
+            sec = 0;
         }
 
-        timerEl.textContent = time;
+        timerEl.textContent = sec;
         feedbackEl.textContent = "Nope!";
         feedbackEl.style.color = "red";
         feedbackEl.style.fontSize = "300%";
@@ -107,7 +107,8 @@ function quizEnd() {
     // hide questions section
     document.getElementById("question").setAttribute("hidden", "");
 
-        
+    // hide feedback
+    document.getElementById("feedback").setAttribute("hidden", "");
 }
 
 function getHighScores () {
@@ -126,12 +127,10 @@ function saveScore () {
         initials: initialsEl.value,
         score: sec
     }
+    
     savedScores.push(data);
     localStorage.setItem("savedScores", JSON.stringify(savedScores));
-
-    // hide feedback
-    document.getElementById("feedback").setAttribute("hidden", "");
-
+    
     getHighScores();
 }
 submitEl.onclick = saveScore;
