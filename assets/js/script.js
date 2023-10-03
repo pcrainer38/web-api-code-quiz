@@ -3,7 +3,7 @@ var questionEl = document.querySelector("#question");
 var optionsEl = document.querySelector("#options");
 // var submitBtn = document.querySelector("#submit");
 // var startBtn = document.querySelector("#start");
-// var initialsEl = document.querySelector("#initials");
+var initialsEl = document.querySelector("#initials");
 var feedbackEl = document.querySelector("#feedback");
 var timerEl = document.querySelector("#time");
 
@@ -15,6 +15,7 @@ document.getElementById("end-screen").innerHTML = "";
 function playGame() {
     // hide start screen
     document.getElementById("start-now").innerHTML = "";
+    
      
     questionEl.removeAttribute("class");
     timer();
@@ -50,17 +51,17 @@ function getQuestion() {
 
         choiceNode.textContent = i + 1 + ". " + choice;
 
-        choiceNode.onclick = questionClick;
+        choiceNode.onclick = checkAnswers;
 
         optionsEl.appendChild(choiceNode);
         
     });
 }
 
-function questionClick() {
+function checkAnswers() {
     // check user's answer
     if (this.value !== question[currentQuestionIndex].answer) {
-        time -= 10;
+        time -= 5;
 
         if (time < 0) {
             time = 0;
@@ -75,10 +76,10 @@ function questionClick() {
         feedbackEl.style.color = "green";
         feedbackEl.style.fontSize = "300%";
     }
-
+    // advances question
     currentQuestionIndex++;
 
-    if (currentQuestionIndex === question.length) {
+    if (currentQuestionIndex == question.length) {
         quizEnd();
     } else {
         getQuestion();
@@ -101,11 +102,3 @@ function quizEnd() {
     questionEl.setAttribute("class", "hide");
 }
 
-function clock() {
-    time--;
-    timerEl.textContent = time;
-
-    if (time <= 0) {
-        quizEnd();
-    }
-}
