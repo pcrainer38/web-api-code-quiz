@@ -1,8 +1,5 @@
 // DOM elements
-var questionEl = document.querySelector("#question");
 var optionsEl = document.querySelector("#options");
-// var submitBtn = document.querySelector("#submit");
-// var startBtn = document.querySelector("#start");
 var initialsEl = document.querySelector("#initials");
 var feedbackEl = document.querySelector("#feedback");
 var timerEl = document.querySelector("#time");
@@ -10,14 +7,14 @@ var timerEl = document.querySelector("#time");
 var currentQuestionIndex = 0;
 
 
-document.getElementById("end-screen").innerHTML = "";
+document.getElementById("end-screen").setAttribute("hidden", "");
 
 function playGame() {
     // hide start screen
     document.getElementById("start-now").innerHTML = "";
     
-     
-    questionEl.removeAttribute("class");
+
+    document.getElementById("question").removeAttribute("hidden", "");
     timer();
     getQuestion();    
 }
@@ -79,6 +76,7 @@ function checkAnswers() {
     // advances question
     currentQuestionIndex++;
 
+    // if all questions have been answered end quiz
     if (currentQuestionIndex == question.length) {
         quizEnd();
     } else {
@@ -91,14 +89,13 @@ function quizEnd() {
     clearInterval(timer);
 
     // unhide end screen
-    var endScreenEl = document.getElementById("end-screen");
-    endScreenEl.removeAttribute("class");
+    document.getElementById("end-screen").removeAttribute("hidden", "");
 
     // show final score
     var finalScoreEl = document.getElementById("final-score");
-    finalScoreEl.textContent = timer;
+    finalScoreEl.textContent = time;
 
     // hide questions section
-    questionEl.setAttribute("class", "hide");
+    document.getElementById("question").setAttribute("hidden", "");
 }
 
