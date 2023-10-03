@@ -6,28 +6,31 @@ var questionEl = document.querySelector("#question");
 // var initialsEl = document.querySelector("#initials");
 // var feedback = document.querySelector("#feedback");
 
-// var currentQuestionIndex = 0;
-var timeLeft = question.length * 5;
+var currentQuestionIndex = 0;
 
 
+document.getElementById("end-screen").innerHTML = "";
 
 function playGame() {
     // hide start screen
     document.getElementById("start-now").innerHTML = "";
-    document.getElementById("end-screen").innerHTML = ""; 
-
+     
     questionEl.removeAttribute("class");
-
-    // getQuestion();    
+    timer();
+    getQuestion();    
 }
 
-// start timer
-var timeInterval = setInterval (function() {
-    if (timeLeft > 0) {
-        timeInterval.textContent = timeLeft;
-        timeLeft--;  
-    } 
-})
+function timer() {
+    var sec = question.length * 5;
+    var timer = setInterval(function() {
+        document.getElementById('time').innerHTML='00:'+sec;
+        sec--;
+        if (sec < 0) {
+            clearInterval(timer);
+        }
+    }, 1000);
+}
+
 
 function getQuestion() {
     var questionContainer = document.getElementById("question");
