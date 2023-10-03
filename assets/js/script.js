@@ -4,7 +4,8 @@ var optionsEl = document.querySelector("#options");
 // var submitBtn = document.querySelector("#submit");
 // var startBtn = document.querySelector("#start");
 // var initialsEl = document.querySelector("#initials");
-var feedback = document.querySelector("#feedback");
+var feedbackEl = document.querySelector("#feedback");
+var timerEl = document.querySelector("#time");
 
 var currentQuestionIndex = 0;
 
@@ -35,24 +36,29 @@ function getQuestion() {
     var currentQuestion = question[currentQuestionIndex];
 
     var titleEl = document.getElementById("questiontitle");
-    titleEl.textContent = currentQuestion.title;
-
+    titleEl.textContent = currentQuestion.questiontitle;
+    
+    // clears out old question choices
     optionsEl.innerHTML = "";
 
+    // loops over options
     currentQuestion.options.forEach(function(choice, i) {
+        // creates button for each option
         var choiceNode = document.createElement("button");
         choiceNode.setAttribute("class", "options");
-        choiceNode.setAttribute("value", options);
+        choiceNode.setAttribute("value", choice);
 
-        choiceNode.textContent = i + 1 + ". " + options;
+        choiceNode.textContent = i + 1 + ". " + choice;
 
         choiceNode.onclick = questionClick;
 
         optionsEl.appendChild(choiceNode);
+        
     });
 }
 
 function questionClick() {
+    // check user's answer
     if (this.value !== question[currentQuestionIndex].answer) {
         time -= 10;
 
@@ -61,24 +67,45 @@ function questionClick() {
         }
 
         timerEl.textContent = time;
-        feedbackEl.textContent = "Wrong!";
+        feedbackEl.textContent = "Nope!";
         feedbackEl.style.color = "red";
-        feedbackEl.style.fontSize = "400%";
+        feedbackEl.style.fontSize = "300%";
     } else {
-        feedbackEl.textContent = "Correct!";
+        feedbackEl.textContent = "You got it!";
         feedbackEl.style.color = "green";
-        feedbackEl.style.fontSize = "400%";
+        feedbackEl.style.fontSize = "300%";
     }
-
-    feedbackEl.setAttribute("class", "feedback");
-    setTimeout(function() {
-        feedbackEl.setAttribute("class", "feedback hide");
-    }, 1000);
 
     currentQuestionIndex++;
 
     if (currentQuestionIndex === question.length) {
         quizEnd();
+    } else {
+        getQuestion();
     }
 }
 
+function quizEnd() {
+    // stop timer
+    clearInterval(timer);
+
+    // unhide end screen
+    var endScreenEl = document.getElementById("end-screen");
+    endScreenEl.removeAttribute("class");
+
+    // show final score
+    var finalScoreEl = document.getElementById("final-score");
+    finalScoreEl.textContent = timer;
+
+    // hide questions section
+    questionEl.setAttribute("class", "hide");
+}
+
+function clock() {
+    time--;
+    timerEl.textContent = time;
+
+    if (time <= 0) {
+        quizEnd();
+    }
+}
