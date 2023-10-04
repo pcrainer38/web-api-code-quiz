@@ -3,7 +3,7 @@ var optionsEl = document.querySelector("#options");
 var initialsEl = document.querySelector("#initials");
 var feedbackEl = document.querySelector("#feedback");
 var timerEl = document.querySelector("#time");
-var submitEl = document.querySelector("#submit");
+var submitEl = document.querySelector("#newsubmit");
 var hscoresEl = document.querySelector("#hscores");
 
 var currentQuestionIndex = 0;
@@ -14,7 +14,7 @@ document.getElementById("highscores").setAttribute("hidden", "");
 
 var timer;
 var sec;
-var savedScores = JSON.parse(localStorage.getItem("savedScores"));
+
  
 
 function playGame() {
@@ -114,6 +114,7 @@ function quizEnd() {
 function getHighScores () {
     document.getElementById("end-screen").setAttribute("hidden", "");
     document.getElementById("highscores").removeAttribute("hidden", "");
+    var savedScores = JSON.parse(localStorage.getItem("savedScores"));     
     for (var i = 0; i < savedScores.length; i++) {
         var newLi = document.createElement("li");
         newLi.textContent = savedScores[i].initials + " - " + savedScores[i].score;
@@ -123,13 +124,18 @@ function getHighScores () {
 hscoresEl.onclick = getHighScores;
 
 function saveScore () {
+    console.log("savescore");
     var data = {
         initials: initialsEl.value,
         score: sec
     }
-    
-    savedScores.push(data);
-    localStorage.setItem("savedScores", JSON.stringify(savedScores));
+    console.log(data);
+
+    var highscores = JSON.parse(window.localStorage.getItem('savedScores')) || [];
+      highscores.push(data);
+      console.log("HS" + highscores);
+      window.localStorage.setItem('savedScores', JSON.stringify(highscores));
+
     
     getHighScores();
 }
