@@ -8,3 +8,11 @@ This application was built to quiz users on basics of javascript.
 
 
 ## Screenshots
+
+![Alt text](<assets/images/Coding Quiz Challenge.png>)
+
+![Alt text](<assets/images/Coding Quiz Challenge (1).png>)
+
+![Alt text](<assets/images/Coding Quiz Challenge (2).png>)
+
+![Alt text](<assets/images/Coding Quiz Challenge (3).png>)

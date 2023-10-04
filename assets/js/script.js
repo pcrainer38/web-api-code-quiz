@@ -12,6 +12,7 @@ var currentQuestionIndex = 0;
 document.getElementById("end-screen").setAttribute("hidden", "");
 document.getElementById("highscores").setAttribute("hidden", "");
 
+
 var timer;
 var sec;
 
@@ -20,7 +21,7 @@ var sec;
 function playGame() {
     // hide start screen
     document.getElementById("start-now").innerHTML = "";
-    
+    document.getElementById("highscores").innerHTML = "";
 
     document.getElementById("question").removeAttribute("hidden", "");
     clock();
